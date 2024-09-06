@@ -4,17 +4,11 @@ from scripts.kpis import main as kpis_main
 
 st.set_page_config(layout="wide")
 
-# Cargar credenciales desde variables de entorno o desde los secretos de Streamlit
-if "GITHUB_TOKEN" in os.environ:
-    GITHUB_USERNAME = os.getenv("GITHUB_USERNAME")
-    GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-    VALID_EMAIL = os.getenv("VALID_EMAIL")
-    VALID_PASSWORD = os.getenv("VALID_PASSWORD")
-else:
-    GITHUB_USERNAME = st.secrets["GITHUB_USERNAME"]
-    GITHUB_TOKEN = st.secrets["GITHUB_TOKEN"]
-    VALID_EMAIL = st.secrets["VALID_EMAIL"]
-    VALID_PASSWORD = st.secrets["VALID_PASSWORD"]
+
+GITHUB_USERNAME = os.getenv("GITHUB_USERNAME")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+VALID_EMAIL = os.getenv("VALID_EMAIL")
+VALID_PASSWORD = os.getenv("VALID_PASSWORD")
 
 
 # Función para la lógica del login
@@ -27,7 +21,7 @@ def login():
     if st.button("Iniciar sesión"):
         if email == VALID_EMAIL and password == VALID_PASSWORD:
             st.session_state['logged_in'] = True
-            st.experimental_rerun()  # Recargar la página después de iniciar sesión
+            st.rerun()  # Recargar la página después de iniciar sesión
         else:
             st.error("Correo electrónico o contraseña incorrectos.")
 
@@ -46,7 +40,7 @@ def main():
         # Botón de cerrar sesión
         if st.sidebar.button("Cerrar sesión"):
             st.session_state['logged_in'] = False
-            st.experimental_rerun()  # Recargar la página después de cerrar sesión
+            st.rerun()  # Recargar la página después de cerrar sesión
 
         # Ejecutar el contenido principal de la aplicación (kpis)
         kpis_main()
