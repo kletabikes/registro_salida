@@ -4,7 +4,6 @@ from scripts.kpis import main as kpis_main
 
 st.set_page_config(layout="wide")
 
-
 GITHUB_USERNAME = os.getenv("GITHUB_USERNAME")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 VALID_EMAIL = os.getenv("VALID_EMAIL")
